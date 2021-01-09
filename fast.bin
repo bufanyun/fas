@@ -497,7 +497,7 @@ Installation_options()
 #	fasadminuser=admin
 #	fi
 		fasadminuser=admin
-	echo -e "已设置后台账号为:\033[32m "$fasadminuser"\033[0m"
+#	echo -e "已设置后台账号为:\033[32m "$fasadminuser"\033[0m"
 	
 	echo
 #	read -p "请设置后台密码(默认随机): " fasadminpass
@@ -505,7 +505,7 @@ Installation_options()
 #	fasadminpass=`date +%s%N | md5sum | head -c 20 ; echo`;
 #	fi
 		fasadminpass=`date +%s%N | md5sum | head -c 20 ; echo`;
-	echo -e "已设置后台密码为:\033[32m "$fasadminpass"\033[0m"
+#	echo -e "已设置后台密码为:\033[32m "$fasadminpass"\033[0m"
 	
 	echo
 #	read -p "请设置Apache端口(默认1024,禁用80): " fasApacheport
@@ -513,7 +513,7 @@ Installation_options()
 #	fasApacheport=1024
 #	fi
 		fasApacheport=1028
-	echo -e "已设置Apache端口为:\033[32m http://"$IP":"$fasApacheport"\033[0m"
+#	echo -e "已设置Apache端口为:\033[32m http://"$IP":"$fasApacheport"\033[0m"
 	
 	echo
 #	read -p "请设置MySQL密码(默认随机): " fassqlpass
@@ -521,7 +521,7 @@ Installation_options()
 #	fassqlpass=`date +%s%N | md5sum | head -c 20 ; echo`;
 #	fi
 		fassqlpass=`date +%s%N | md5sum | head -c 20 ; echo`;
-	echo -e "已设置MySQL密码为:\033[32m "$fassqlpass"\033[0m"
+#	echo -e "已设置MySQL密码为:\033[32m "$fassqlpass"\033[0m"
 	
 #	echo
 #	read -p "请设置APP名称(默认：布帆云科技): " appname
