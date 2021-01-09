@@ -461,7 +461,7 @@ vpn restart
 clear
 echo "---------------------------------------------"
 echo "---------------------------------------------"
-echo "恭喜，您已经安装完毕。"
+echo "恭喜，您已经安装完毕主服务器RPC环境，如需使用控制台请在保存以下信息后，到https://gitee.com/bufanyun/fas按说明下载安装web完整包。"
 echo "控制台: http://"$IP":"$fasApacheport"/admin/"
 echo "账号: "$fasadminuser" 密码: "$fasadminpass""
 echo "控制台随机本地密钥: "$password2""
