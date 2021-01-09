@@ -31,11 +31,11 @@ sysctl net.ipv4.tcp_available_congestion_control
 ## 安装成功说明
 **>>> 脚本默认安装主服务器环境，可直接作为RPC交换机接口，同时兼容主节点或子节点** 
 
-### 一、安装web管理端
+### 一、安装web管理端 [可选]
 ##### 请 [下载web完整包](https://gitee.com/bufanyun/fas/raw/master/fas_web%E5%AE%8C%E6%95%B4%E7%89%88.zip)，下载完成后上传解压到服务器 `/var/www/` 目录，然后将`/var/www/html/config.php`目录中的数据库信息改为你当前的信息，一般只需要修改数据库密码即可，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
-### 二、负载成为子节点
+### 二、负载成为子节点 [可选]
 * 将`/var/www/html/config.php`目录中的数据库信息改为你主服务器数据库信息，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
