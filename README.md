@@ -8,19 +8,24 @@
 
 ## 安装脚本
 ```shell script
-> yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
-
+yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
 ```
 
 ## 守护进程
-> wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
+```shell script
+wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
+```
 
 ## bbr内核优化 -- 双倍网速
 ######部分系统仅在centos7.4以下有效
-> wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+```shell script
+wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+```
 
 * 重启后，查看是否安装成功，如果返回结果中含有‘bbr’ 则说明成功
-> sysctl net.ipv4.tcp_available_congestion_control
+```shell script
+sysctl net.ipv4.tcp_available_congestion_control
+```
 
 ## 安装完成说明
 - 脚本默认安装完成主服务器脚本
@@ -40,23 +45,23 @@
 ## 常用命令
 
 > 重启流控 vpn restart
->
+
 >开端口 port
->
+
 >查系统版本 cat /etc/redhat-release
->
+
 >查端口开启 netstat -nulp  
->
+
 >查服务器时间 date
->
+
 >改服务器时间 date -s 09/01/2017
->
+
 >禁止ping echo 1 >/proc/sys/net/ipv4/icmp_echo_ignore_all
->
+
 >允许ping echo 0 >/proc/sys/net/ipv4/icmp_echo_ignore_all
->
+
 >查web端口 netstat -nutlp | grep httpd
->
+
 
 ## 常见问题
 #### 1.安装后无法访问后台？
