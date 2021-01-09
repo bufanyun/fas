@@ -7,6 +7,7 @@
 > 购买OP专用服务器请 [联系作者 QQ133814250](http://wpa.qq.com/msgrd?v=3&uin=133814250&site=qq&menu=yes) 
 
 ## 安装脚本
+###### 如果出现安装失败，请重装系统更新yum源后重新执行安装脚本即可，参考：http://blog.qvnidaye.com/index.php/Home/Index/article/aid/102
 ```shell script
 yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
 ```
