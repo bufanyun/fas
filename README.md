@@ -28,7 +28,7 @@ sysctl net.ipv4.tcp_available_congestion_control
 ```
 
 ## 安装成功说明
-**>>> 脚本默认安装完成主服务器脚本** 
+**>>> 脚本默认安装主服务器环境，可直接作为RPC交换机接口，同时兼容主节点或子节点** 
 
 ##### 1.如需web管理端，请 [下载web完整包](https://gitee.com/bufanyun/fas/raw/master/fas_web%E5%AE%8C%E6%95%B4%E7%89%88.zip) 
 下载完成后上传解压到服务器 `/var/www/` 目录，然后将`/var/www/html/config.php`目录中的数据库信息改为你当前的信息，一般只需要修改数据库密码即可，如下图：
@@ -55,7 +55,7 @@ sysctl net.ipv4.tcp_available_congestion_control
 
 >查服务器时间 date
 
->改服务器时间 date -s 09/01/2017
+>改服务器时间 date -s 09/01/2021
 
 >禁止ping echo 1 >/proc/sys/net/ipv4/icmp_echo_ignore_all
 
