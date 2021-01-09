@@ -2,11 +2,6 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-#================================
-#版本: 2019-5-16
-#说明: 删除MYsql
-#===============================
-
 sh_ver="1.0"
 Green="\033[32m"
 Red="\033[31m"
