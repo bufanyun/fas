@@ -1,0 +1,140 @@
+#!/usr/bin/env bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+#================================
+#版本: 2019-5-16
+#说明: 删除MYsql
+#===============================
+
+sh_ver="1.0"
+Green="\033[32m"
+Red="\033[31m"
+Blue="\033[36m"
+Font="\033[0m"
+Info="${Green}[信息]${Font}"
+Error="${Red}[警告]${Font}"
+Tip="${Blue}[注意]${Font}"
+AD=`pwd`
+
+Fas_Install(){
+	if [ -f "/bin/fas" ];then
+		echo -e "${Error} FAS守护已安装! "
+		echo "更新请先卸载原脚本"
+		sleep 1
+	exit
+fi
+	echo "  ----正在安装FAS守护脚本" && echo
+	cp ${AD}/fas /bin/fas
+	chmod 0777 /bin/fas
+	echo '	while true
+		do
+			netstat -lnup | grep openvpn &>/dev/null
+				if [ "$?" -ne "0" ];then
+					Date=`date +%Y年%m月%d日%H时%M分%S秒`
+					echo "$Date FAS守护: OpenVPN异常退出 尝试启动~" >> /root/fas.log
+					systemctl restart openvpn@server-udp >/dev/null 2>&1
+					sleep 2
+					netstat -lnup | grep openvpn &>/dev/null
+					if [ "$?" -eq "0" ];then
+						Date=`date +%Y年%m月%d日%H时%M分%S秒`
+						echo "$Date FAS守护: OpenVPN进程 启动成功~">> /root/fas.log
+					else
+					 Date=`date +%Y年%m月%d日%H时%M分%S秒`
+					 echo "$Date FAS守护: OpenVPN启动失败 10秒后将重试">> /root/fas.log
+					fi
+				fi
+		sleep 10
+		done' > /bin/fas_openvpn
+
+}
+
+Fas_Uninstall(){
+	echo -n -e "${Error}确定卸载FAS流控守护脚本? Y/n: "
+	read choose
+	if [ "$choose" == "Y" ] || [ "$choose" == "y" ]
+		then
+			kill -9 $(ps -ef|grep fas_openvpn|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
+			kill -9 $(ps -ef|grep fas_mysql|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
+			rm -rf ${AD}/fas
+			rm -rf /bin/fas
+			rm -rf /bin/fas_openvpn
+			rm -rf /bin/fas_mysql
+			
+		 echo "   ----Fas守护脚本卸载完成"
+		exit
+	else
+	echo "取消"
+	fi
+}
+
+Fas_Run(){
+	  ps -ef | grep fas_openvpn | grep -v "grep" &>/dev/null
+	if [ "$?" = "0" ];then
+		 echo -e "$Error FAS守护已在运行 无法多次运行"
+		 sleep 2
+		exit
+	fi
+	echo "----Run OpenVPN Monitor Please Wait" && echo
+  bash /bin/fas_openvpn &
+  ps -ef | grep fas_openvpn &>/dev/null
+  if [ "$?" -ne "0" ];then
+			 echo -e "${Tip} FAS OpenVPN守护 启动失败 请检查" && echo
+	else
+       echo -e "${Info} FAS OpenVPN守护 启动成功" && echo
+	fi
+
+	Date=`date +%Y年%m月%d日%H时%M分%S秒`
+	echo "${Date} Run OpenVPN" >> /root/fas.log
+}
+
+Fas_Stop(){
+		echo -n -e "${Error}确定停止FAS守护? Y/n: "
+	read choose
+	if [ "$choose" == "Y" ] || [ "$choose" == "y" ]
+		then
+			echo -e "${Info} FAS守护已停止" && echo
+			kill -9 $(ps -ef|grep fas_openvpn|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
+			kill -9 $(ps -ef|grep fas_mysql|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
+	else
+	echo "取消"
+	fi
+}
+
+Fas_LOG(){
+	cat /root/fas.log
+}
+
+
+echo
+echo -e "  FAS守护维护脚本 ${Red}[v${sh_ver}]${Font}
+  ---- Ms | www.qvnidaye.com ----
+  
+ ${Green}1.${Font} 安装 FAS守护
+ ${Green}2.${Font} 卸载 FAS守护
+————————————
+ ${Green}3.${Font} 启动 FAS守护
+ ${Green}4.${Font} 停止 FAS守护
+ ${Green}5.${Font} 查看 FAS守护日志
+————————————" && echo
+stty erase '^H' && read -p " 请输入数字 [1-6]:" num
+case "$num" in
+	1)
+	Fas_Install
+	;;
+	2)
+	Fas_Uninstall
+	;;
+	3)
+	Fas_Run
+	;;
+	4)
+	Fas_Stop
+	;;
+	5)
+	Fas_LOG
+	;;
+	*)
+	echo "请输入正确数字 [1-6]"
+	;;
+esac

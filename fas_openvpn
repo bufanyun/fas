@@ -1,0 +1,20 @@
+	while true
+		do
+			netstat -lnup | grep openvpn &>/dev/null
+				if [ "$?" -ne "0" ];then
+					Date=`date +%Y年%m月%d日%H时%M分%S秒`
+					echo "$Date FAS守护: OpenVPN异常退出 尝试启动（并重启vpn r~）" >> /root/fas.log
+					systemctl restart openvpn@server-udp >/dev/null 2>&1
+					vpn r >/dev/null 2>&1
+					sleep 2
+					netstat -lnup | grep openvpn &>/dev/null
+					if [ "$?" -eq "0" ];then
+						Date=`date +%Y年%m月%d日%H时%M分%S秒`
+						echo "$Date FAS守护: OpenVPN进程 启动成功~">> /root/fas.log
+					else
+					 Date=`date +%Y年%m月%d日%H时%M分%S秒`
+					 echo "$Date FAS守护: OpenVPN启动失败 10秒后将重试">> /root/fas.log
+					fi
+				fi
+		sleep 10
+		done

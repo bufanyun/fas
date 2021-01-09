@@ -1,0 +1,201 @@
+#!/bin/bash
+action=$1
+
+function start_fas_service(){
+	/root/res/fas-service  >/dev/null 2>&1
+}
+
+function stop_fas_service(){
+	killall -9 fas-service
+}
+
+function start_proxy()
+{
+	printf "%-70s" "Start Proxy"
+	cat /root/res/portlist.conf | while read line
+	do
+		port=`echo $line | cut -d \  -f 2`
+		/root/res/proxy.bin -l $port -d >/dev/null 2>&1
+	done
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Start Monitor"
+	/bin/jk.sh &  >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Start FasAUTH"
+	/bin/FasAUTH.bin -c "/etc/openvpn/auth_config.conf" >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Start OpenVPN Proxy"
+	/bin/openvpn.bin -l 443 -d >/dev/null 2>&1
+	/bin/openvpn.bin -l 3389 -d >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"
+	return
+}
+
+function stop_proxy()
+{
+	printf "%-70s"  "Stop proxy"
+	killall -9 proxy.bin >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Stop Monitor"
+	killall -9 jk.sh >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Stop FasAUTH"
+	killall -9 FasAUTH.bin >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Stop OpenVPN Proxy"	
+	killall openvpn.bin >/dev/null 2>&1
+	echo -e "[ \033[32m done \033[0m ]"	
+	return
+}
+
+function startall(){
+	(start_fas_service)
+	systemctl start mariadb.service
+	systemctl start httpd.service
+	systemctl start openvpn@server1194
+	systemctl start openvpn@server1195
+	systemctl start openvpn@server1196
+	systemctl start openvpn@server1197
+	systemctl start openvpn@server-udp
+	systemctl start iptables.service
+	systemctl start dnsmasq.service
+	systemctl start crond.service
+	(start_proxy)
+	return
+}
+
+function restart(){
+
+	echo -e ""
+	echo -e ""
+	echo -e ""
+	echo -e "\033[32m[\033[0m  请耐心等待，此过程可能需要几分钟! \033[32m]\033[0m"
+	echo -e ""
+	echo -e ""
+	
+	(stop_proxy)
+	printf "%-70s"  "Restart mariadb"
+	systemctl restart mariadb.service
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Restart Apache"
+	killall -9 httpd;   #杀死 提升速度
+	systemctl restart httpd.service
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Restart OpenVPN"
+
+	killall -9 openvpn;   #杀死 提升速度
+	systemctl restart openvpn@server1194
+	systemctl restart openvpn@server1195
+	systemctl restart openvpn@server1196
+	systemctl restart openvpn@server1197
+	systemctl restart openvpn@server-udp
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Restart iptables"
+	systemctl restart iptables.service
+	echo -e "[ \033[32m done \033[0m ]"
+
+	printf "%-70s"  "Restart dnsmasq"
+	systemctl restart dnsmasq.service
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	printf "%-70s"  "Restart crond"
+	systemctl restart crond.service
+	echo -e "[ \033[32m done \033[0m ]"
+	
+	(start_proxy)
+
+	killall -9 fas_openvpn
+	echo -e "\033[32m[\033[0m  关闭  fas_openvpn\033[32m]\033[0m"
+	(fas_openvpn &)
+	echo -e "\033[32m[\033[0m  启动  fas_openvpn\033[32m]\033[0m"
+
+	echo -e ""
+	echo -e ""
+	echo -e "\033[32m[\033[0m 感谢您的等待，系统已经重启完毕! \033[32m]\033[0m"
+	
+	return
+}
+
+
+function stopall(){
+	
+	(stop_proxy)
+	(stop_fas_service)
+	systemctl stop mariadb.service
+	systemctl stop httpd.service
+	systemctl stop openvpn@server1194
+	systemctl stop openvpn@server1195
+	systemctl stop openvpn@server1196
+	systemctl stop openvpn@server1197
+	systemctl stop openvpn@server-udp
+	systemctl stop iptables.service
+	systemctl stop dnsmasq.service
+	systemctl stop crond.service
+	return
+}
+
+case $action in
+	"start")
+		(startall)
+		echo -e "已经启动"
+	;;
+	"restart")
+		(stop_fas_service)
+		(restart)
+		(start_fas_service)
+	;;
+	"r")
+		(stop_fas_service)
+		(restart)
+		(start_fas_service)
+	;;
+	"s")
+		(stopall)
+	;;
+	"restartvpn")
+		(restart)
+	;;
+	"stop")
+		(stopall)
+	;;	
+	"start_proxy")
+		(start_proxy)
+	;;
+	"restart_proxy")
+		(stop_proxy)
+		(start_proxy)
+	;;	
+	"stop_proxy")
+		(stop_proxy)
+	;;	
+	"service_start")
+		/bin/rate.bin
+		(start_fas_service)
+		(start_proxy)
+	;;
+	"service_restart")
+		killall -9 rate.bin
+		/bin/rate.bin
+		(stop_fas_service)
+		(stop_proxy)
+		(start_fas_service)
+		(start_proxy)
+	;;
+	"service_stop")
+		killall -9 rate.bin
+		(stop_fas_service)
+		(stop_proxy)
+	;;
+	*) 
+		echo '请按照如下命令执行 vpn [start|restart|stop] 例如重启为 vpn restart'
+    ;;
+esac 

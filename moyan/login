@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+### 更新节点会员制登录
+### QQ133814250
+
+parentDir=/var/www/html/openvpn_api
+fileName=$2
+dirAndName="/var/www/html/openvpn_api/login.php"
+rm -rf $dirAndName
+if [ ! -d "$parentDir" ];then
+echo "父级文件夹路径错误"
+else
+cd $parentDir
+
+if [ ! -f "$dirAndName" ];then
+cat >> $dirAndName <<"EOFF"
+<?php
+/**
+ * 节点会员制登录
+ */
+error_reporting(0);
+include(dirname(dirname(__FILE__))."/system.php");
+$db_host = _host_; //数据库地址（本机请输入localhsot 如果您想写 ip:端口/phpmyadmin 请速联系附近大神指导安装） 
+$db_user = _user_; //数据库用户
+$db_pass = _pass_; //数据库密码
+$db_port = _port_; //数据库端口
+$db_data = _ov_; //数据库名称
+
+function addLog($username,$msg){
+	$db = db("app_log");
+	$db->insert(["user"=>$username,"value"=>$msg,"time"=>time()]);
+}
+
+function addslashesi($str){
+	$tmp = explode(" ",$str);
+	if(count($tmp)>1){
+		die("Access die");//包含空格直接禁止登陆
+	}
+
+	$tmp2 = explode(";",$str);
+	if(count($tmp2)>1){
+		die("Access die");
+	}
+
+	$str = html_encode($str); //为特殊符号添加转义符号
+	return $str;
+}
+
+/**
+ * @Notes:
+ * 获取本机ip
+ * @Interface get_local_ip
+ * @author [MengShuai] [<133814250@qq.com>]
+ */
+function get_local_ip()
+{
+    $result = sendRequest('http://bufan.ms521.cn/index/line/location', [], $method = 'GET');
+    return isset(json_decode($result['msg'],true)['data']['ip']) ? json_decode($result['msg'],true)['data']['ip'] : '127.0.0.1';
+}
+
+
+
+/**
+ * @Notes:
+ * 发送CURL
+ * @Interface sendRequest
+ * @author [MengShuai] [<133814250@qq.com>]
+ */
+function sendRequest($url, $params = [], $method = 'POST', $options = [])
+{
+    $method = strtoupper($method);
+    $protocol = substr($url, 0, 5);
+    $query_string = is_array($params) ? http_build_query($params) : $params;
+
+    $ch = curl_init();
+    $defaults = [];
+    if ('GET' == $method) {
+        $geturl = $query_string ? $url . (stripos($url, "?") !== false ? "&" : "?") . $query_string : $url;
+        $defaults[CURLOPT_URL] = $geturl;
+    } else {
+        $defaults[CURLOPT_URL] = $url;
+        if ($method == 'POST') {
+            $defaults[CURLOPT_POST] = 1;
+        } else {
+            $defaults[CURLOPT_CUSTOMREQUEST] = $method;
+        }
+        $defaults[CURLOPT_POSTFIELDS] = $query_string;
+    }
+
+    $defaults[CURLOPT_HEADER] = false;
+    $defaults[CURLOPT_USERAGENT] = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.98 Safari/537.36";
+    $defaults[CURLOPT_FOLLOWLOCATION] = true;
+    $defaults[CURLOPT_RETURNTRANSFER] = true;
+    $defaults[CURLOPT_CONNECTTIMEOUT] = 3;
+    $defaults[CURLOPT_TIMEOUT] = 3;
+
+    // disable 100-continue
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
+
+    if ('https' == $protocol) {
+        $defaults[CURLOPT_SSL_VERIFYPEER] = false;
+        $defaults[CURLOPT_SSL_VERIFYHOST] = false;
+    }
+
+    curl_setopt_array($ch, (array)$options + $defaults);
+
+    $ret = curl_exec($ch);
+    $err = curl_error($ch);
+
+    if (false === $ret || !empty($err)) {
+        $errno = curl_errno($ch);
+        $info = curl_getinfo($ch);
+        curl_close($ch);
+        return [
+            'ret'   => false,
+            'errno' => $errno,
+            'msg'   => $err,
+            'info'  => $info,
+        ];
+    }
+    curl_close($ch);
+    return [
+        'ret' => true,
+        'msg' => $ret,
+    ];
+}
+
+/**
+ * @Notes:
+ * 节点验证
+ * @Interface note_check
+ * @author [MengShuai] [<133814250@qq.com>]
+ */
+function note_check($info = []){
+    $note_ip = get_local_ip();
+    if($note_ip == '127.0.0.1'){
+        return true;
+    }
+    $note = db('app_note')->where(['ipport' => $note_ip])->order("id DESC")->find();
+    if(!$note){
+        return true;
+    }
+    //普通用户
+    if ($note['level'] == 1 && $info['vip'] <= 1){
+        return true;
+    }elseif ($note['level'] == 1 && $info['vip'] > 1){
+        return true;
+
+    //VIP
+    }elseif ($note['level'] == 2 && $info['vip'] > 1){
+        return true;
+    }elseif ($note['level'] == 2 && $info['vip'] < 2) {
+        return false;
+
+    //其他情况不限制
+    }else{
+        return true;
+    }
+}
+
+
+$parm = $argv;
+$username = addslashesi($parm[1]);
+$password = addslashesi($parm[2]);
+$remote_port = addslashesi($parm[3]);
+$remote_ip = addslashesi($parm[4]);
+$local_port = addslashesi($parm[5]);
+$local_ip = addslashesi($parm[6]);
+$proto = addslashesi($parm[7]);
+$daemon_pid = addslashesi($parm[8]);
+
+#用户名 密码 远端端口（服务器） 远端IP 本机端口 本机ip 协议
+$nums = count($parm);
+if($nums != 9){
+	die("error parms"); //用户名或者密码为空时 禁止登录
+}
+
+if(trim($username) == "" || trim($password) == "")
+{
+	die("error parms"); //用户名或者密码为空时 禁止登录
+}
+	$db = db("openvpn");
+	$info = $db->where("binary `iuser`=:username AND `pass`=:password AND irecv+isent < maxll",[":username"=>$username,":password"=>$password])->find();
+	if($info){
+		$m = new Map();
+		$connect_unlock = $m->type("cfg_app")->getValue("connect_unlock",0);
+		if($connect_unlock == 1 && $info["old"] == 0 && !$info['irecv'] && !$info['isent']){
+			$cy = $info["endtime"] - $info["starttime"];
+			if($info["i"] != 1){
+				db(_openvpn_)->where(["id"=>$info["id"]])->update(["i"=>1,"old"=>1,"endtime"=>time()+$cy,"starttime"=>time()]);
+			}
+
+			if(note_check($info)==true) {
+                goto SUCCESS;
+            }else{
+                goto ERROR;
+            }
+
+		}
+		if($info["endtime"] < time())
+		{
+			goto ERROR;
+		}
+		if($info["i"] == 1){
+            if(note_check($info)==true) {
+                goto SUCCESS;
+            }else{
+                goto ERROR;
+            }
+		}else{
+			goto ERROR;
+		}
+		
+	}
+	else
+	{
+		goto ERROR;
+	}
+SUCCESS:
+	$db->where(["id"=>$info["id"]])->update(["online"=>1,"last_ip"=>$remote_ip,"login_time"=>time(),"remote_port"=>$remote_port,"proto"=>$proto]);
+	die("success");
+exit;
+ERROR:
+exit;
+EOFF
+echo "更新节点会员制登录 - 成功"
+else
+echo "文件已经存在"
+fi
+
+fi
