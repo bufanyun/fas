@@ -11,7 +11,7 @@ replace_yum()
 if [[ ${YUM_Choice} == "China" ]]; then
 	echo "系统搭建方式等于China" >/dev/null 2>&1
 	echo "正在更新YUM源，更新速度取决于服务器宽带......"
-	sleep 1
+#	sleep 1
 	mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo_bak
 	wget -O /etc/yum.repos.d/CentOS-Base.repo ${Download_host}Centos-7.repo
 	yum clean all
@@ -24,7 +24,7 @@ fi
 if [[ ${YUM_Choice} == "Abroad" ]]; then
 	echo "系统搭建方式等于Abroad" >/dev/null 2>&1
 	echo "正在更新YUM源，更新速度取决于服务器宽带......"
-	sleep 1
+#	sleep 1
 	mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo_bak
 	wget -O /etc/yum.repos.d/CentOS-Base.repo ${Download_host}Centos-7.repo
 	yum clean all
@@ -125,7 +125,7 @@ Framework=$( virt-what )
 if [[ ${Framework} == "ovz" ]]; then
 	echo
 	echo "您当前机器架构为 OpenVZ 虚拟平台，暂不支持此架构机器安装Dalo系统，请更换KVM或Hyper-V架构或物理机器后再次进行搭建操作！"
-	sleep 1
+#	sleep 1
 	exit;0
 	else
 	echo "不等于ovz" >/dev/null 2>&1
@@ -133,7 +133,7 @@ fi
 if [[ ${Framework} == "openvz" ]]; then
 	echo
 	echo "您当前机器架构为 OpenVZ 虚拟平台，暂不支持此架构机器安装Dalo系统，请更换KVM或Hyper-V架构或物理机器后再次进行搭建操作！"
-	sleep 1
+#	sleep 1
 	exit;0
 	else
 	echo "不等于openvz" >/dev/null 2>&1
@@ -141,7 +141,7 @@ fi
 if [[ ${Framework} == "kvm" ]]; then
 	echo
 	echo "您当前机器架构为 KVM 虚拟平台，符合系统安装环境！"
-	sleep 1
+#	sleep 1
 	Home_page
 	else
 	echo "kvm" >/dev/null 2>&1
@@ -149,7 +149,7 @@ fi
 if [[ ${Framework} == "hyperv" ]]; then
 	echo
 	echo "您当前机器架构为 Hyper-V 虚拟平台，符合系统安装环境！"
-	sleep 1
+#	sleep 1
 	Home_page
 	else
 	echo "不等于hyperv" >/dev/null 2>&1
@@ -157,7 +157,7 @@ fi
 if [[ ${Framework} == "" ]]; then
 	echo
 	echo "您当前机器架构为 物理机器/实体机器，符合系统安装环境！"
-	sleep 1
+#	sleep 1
 	Home_page
 	else
 	echo "不等于物理机" >/dev/null 2>&1
@@ -349,7 +349,7 @@ Install_Startup_program()
 {
 cd /root
 echo "启动所有服务......"
-sleep 1
+#sleep 1
 systemctl restart iptables.service
 if [[ $? -eq 0 ]];then
 echo "Iptables启动成功！"
@@ -586,7 +586,7 @@ Home_page()
 	echo 
 #	echo -e "\033[1;36m回车开始搭建FAS3.0系统！\033[0m "
 #	read
-	sleep 2
+#	sleep 2
 	echo -e "\033[1;32m正在载入信息.....\033[0m "
 #	sleep 1
 	Get_IP
@@ -728,13 +728,13 @@ Install_command
 system_detection()
 {
 if [[ "$EUID" -ne 0 ]]; then  
-sleep 1
+#sleep 1
 echo
 echo "致命错误，您需要以root身份运行此脚本！"  
 exit 0;
 fi
 if [[ ! -e /dev/net/tun ]]; then  
-sleep 1
+#sleep 1
 echo
 echo "致命错误，TUN不可用，安装无法继续！"  
 exit 0;
