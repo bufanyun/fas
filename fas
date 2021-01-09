@@ -2,7 +2,8 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-sh_ver="1.0"
+
+sh_ver="0.2"
 Green="\033[32m"
 Red="\033[31m"
 Blue="\033[36m"
@@ -41,7 +42,11 @@ fi
 				fi
 		sleep 10
 		done' > /bin/fas_openvpn
+chmod 0777 /bin/fas_openvpn
 
+	echo "  ----FAS守护脚本安装完成" && echo
+	echo "  ----输入fas即可管理脚本" && echo
+	echo "  ----手动运行fas启动脚本" && echo
 }
 
 Fas_Uninstall(){
@@ -49,13 +54,12 @@ Fas_Uninstall(){
 	read choose
 	if [ "$choose" == "Y" ] || [ "$choose" == "y" ]
 		then
-			kill -9 $(ps -ef|grep fas_openvpn|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
-			kill -9 $(ps -ef|grep fas_mysql|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
 			rm -rf ${AD}/fas
 			rm -rf /bin/fas
 			rm -rf /bin/fas_openvpn
-			rm -rf /bin/fas_mysql
-			
+			#rm -rf /bin/fas_mysql
+			kill -9 $(ps -ef|grep fas_openvpn|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
+			#kill -9 $(ps -ef|grep fas_mysql|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
 		 echo "   ----Fas守护脚本卸载完成"
 		exit
 	else
@@ -72,15 +76,14 @@ Fas_Run(){
 	fi
 	echo "----Run OpenVPN Monitor Please Wait" && echo
   bash /bin/fas_openvpn &
-  ps -ef | grep fas_openvpn &>/dev/null
+  ps -ef | grep fas_openvpn | grep -v "grep" &>/dev/null
   if [ "$?" -ne "0" ];then
 			 echo -e "${Tip} FAS OpenVPN守护 启动失败 请检查" && echo
 	else
        echo -e "${Info} FAS OpenVPN守护 启动成功" && echo
 	fi
-
 	Date=`date +%Y年%m月%d日%H时%M分%S秒`
-	echo "${Date} Run OpenVPN" >> /root/fas.log
+	echo "${Date} Run OpenVPN Monitor" >> /root/fas.log
 }
 
 Fas_Stop(){
@@ -90,7 +93,7 @@ Fas_Stop(){
 		then
 			echo -e "${Info} FAS守护已停止" && echo
 			kill -9 $(ps -ef|grep fas_openvpn|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
-			kill -9 $(ps -ef|grep fas_mysql|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
+			#kill -9 $(ps -ef|grep fas_mysql|gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ') >/dev/null 2>&1
 	else
 	echo "取消"
 	fi
@@ -100,10 +103,12 @@ Fas_LOG(){
 	cat /root/fas.log
 }
 
+Fas_Update(){
+  	echo -e "${Error} FAS守护为最新版"
+}
 
 echo
 echo -e "  FAS守护维护脚本 ${Red}[v${sh_ver}]${Font}
-  ---- Ms | www.qvnidaye.com ----
   
  ${Green}1.${Font} 安装 FAS守护
  ${Green}2.${Font} 卸载 FAS守护
@@ -111,6 +116,8 @@ echo -e "  FAS守护维护脚本 ${Red}[v${sh_ver}]${Font}
  ${Green}3.${Font} 启动 FAS守护
  ${Green}4.${Font} 停止 FAS守护
  ${Green}5.${Font} 查看 FAS守护日志
+————————————
+ ${Green}6.${Font} 更新 FAS守护
 ————————————" && echo
 stty erase '^H' && read -p " 请输入数字 [1-6]:" num
 case "$num" in
@@ -128,6 +135,9 @@ case "$num" in
 	;;
 	5)
 	Fas_LOG
+	;;
+	6)
+	Fas_Update
 	;;
 	*)
 	echo "请输入正确数字 [1-6]"

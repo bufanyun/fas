@@ -1,14 +1,37 @@
 
 ## 准备工作
-* 准备一台Centos7.0 x64-Centos7.9 x64服务器 (推荐腾讯云 阿里云 购买OP专用服务器联系QQ133814250)
+* 准备一台Centos7.0 x64-Centos7.9 x64服务器 (推荐腾讯云 阿里云 IDC大宽带)
 * CPU/内存：服务器配置最低1核1G
-* 带宽：(推荐5M以上)，具体根据你的使用率扩展
+* 带宽：推荐5M以上
 * 网络：必须具有固定公网IP
+> 购买OP专用服务器请 [联系作者 QQ133814250](http://wpa.qq.com/msgrd?v=3&uin=133814250&site=qq&menu=yes) 
 
-## fas流控安装脚本
-```shell script
-yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
-```
+## 安装脚本
+
+> yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
+
+## 守护进程
+> wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
+
+##常用命令
+> 重启流控 vpn restart
+>
+>开端口 port
+>
+>查系统版本 cat /etc/redhat-release
+>
+>查端口开启 netstat -nulp  
+>
+>查服务器时间 date
+>
+>改服务器时间 date -s 09/01/2017
+>
+>禁止ping echo 1 >/proc/sys/net/ipv4/icmp_echo_ignore_all
+>
+>允许ping echo 0 >/proc/sys/net/ipv4/icmp_echo_ignore_all
+>
+>查web端口 netstat -nutlp | grep httpd
+>
 
 ## 常见问题
 ####1.安装后无法访问后台？
@@ -25,7 +48,6 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 * 请尊重作者，支持正版
 * 若侵犯作者利益，请联系我
 * 此脚本仅用适用于测试学习，不可用于非法或商业用途
-* 
 
 
 
