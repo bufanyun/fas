@@ -16,8 +16,8 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
-## bbr内核优化 -- 双倍网速
-######部分系统仅在centos7.4以下有效
+## bbr加速
+######内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
 wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 ```
@@ -67,7 +67,7 @@ sysctl net.ipv4.tcp_available_congestion_control
 
 
 ## 声明
-* 本产品仅可用于国内网络环境的虚拟加密访问，用于数据保密。严禁用于任何违法违规用途
+* 本产品仅可用于国内网络环境的虚拟加密访问，用于数据保密，严禁用于任何违法违规用途
 * 请尊重作者，支持正版
 * 若侵犯作者利益，请联系我
 * 此脚本仅用适用于测试学习，不可用于非法或商业用途
