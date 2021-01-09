@@ -17,7 +17,7 @@ wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
 ## bbr加速
-######内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
+###### 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
 wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 ```
