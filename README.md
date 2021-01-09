@@ -12,12 +12,12 @@
 yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
 ```
 
-## 守护进程
+## 守护进程 [可选]
 ```shell script
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
-## bbr加速
+## bbr加速 [可选]
 ###### 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
 wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
