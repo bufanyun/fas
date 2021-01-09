@@ -12,7 +12,7 @@
 yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
 ```
 
-## 守护进程 [可选]
+## 守护进程 
 ```shell script
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
