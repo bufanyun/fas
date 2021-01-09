@@ -487,10 +487,10 @@ exit;0
 Installation_options()
 {
 	clear
-	echo
+#	echo
 	#echo -e "\033[1;42;37m尊敬的用户您好，搭建FAS系统之前请您先自定义以下信息，如不会填写请直接回车默认即可！\033[0m"
-	echo -e "\033[1;42;37m正在初始化配置信息..\033[0m"
-	echo
+#	echo -e "\033[1;42;37m正在初始化配置信息..\033[0m"
+#	echo
 #	sleep 1
 #	read -p "请设置后台账号(默认admin): " fasadminuser
 #	if [ -z "$fasadminuser" ];then
