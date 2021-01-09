@@ -35,10 +35,10 @@ sysctl net.ipv4.tcp_available_congestion_control
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
 ### 二、负载成为子节点
-* 将`/var/www/html/config.php`目录中的数据库信息改为你主服务器数据库信息，如下图
+* 将`/var/www/html/config.php`目录中的数据库信息改为你主服务器数据库信息，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
-* 将`/etc/openvpn/auth_config.conf`目录中的数据库信息改为你主服务器数据库信息和服务器公网IP，如下图
+* 将`/etc/openvpn/auth_config.conf`目录中的数据库信息改为你主服务器数据库信息和服务器公网IP，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221847_f0fd1f91_5102272.png "屏幕截图.png")
 
 * 最后重启流控生效
@@ -72,27 +72,6 @@ sysctl net.ipv4.tcp_available_congestion_control
 * 若侵犯作者利益，请联系我
 * 此脚本仅用适用于测试学习，不可用于非法或商业用途
 
-
-
-  
-
-
-  
-
-
-  
-
-
-  
-
-
-  
-
-
-  
-
-
-  
 
 
   
