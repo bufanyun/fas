@@ -30,7 +30,7 @@ sysctl net.ipv4.tcp_available_congestion_control
 ## 布帆云监控 [需联系作者购买扩展]
 ###### 多节点云控，自动释放缓存资源，提升系统稳定性
 ```shell script
-rm -rf /usr/bin/jk.sh && wget http://sh.qvnidaye.com/fas/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
+rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
 ```
 
 ## 安装成功说明
