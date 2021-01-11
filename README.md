@@ -17,8 +17,8 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
-## 布帆云监控 [需联系作者购买扩展]
-###### 多节点云控，自动释放缓存资源，提升系统稳定性
+## 布帆云监控 [可选]
+###### 需联系作者购买扩展，多节点云控，自动释放缓存资源，提升系统稳定性
 ```shell script
 rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
 ```
