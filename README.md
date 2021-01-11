@@ -17,6 +17,12 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
+## 布帆云监控 [需联系作者购买扩展]
+###### 多节点云控，自动释放缓存资源，提升系统稳定性
+```shell script
+rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
+```
+
 ## bbr加速 [可选]
 ###### 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
@@ -26,11 +32,6 @@ wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh 
 * 重启后，查看是否安装成功，如果返回结果中含有‘bbr’ 则说明成功
 ```shell script
 sysctl net.ipv4.tcp_available_congestion_control
-```
-## 布帆云监控 [需联系作者购买扩展]
-###### 多节点云控，自动释放缓存资源，提升系统稳定性
-```shell script
-rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
 ```
 
 ## 安装成功说明
