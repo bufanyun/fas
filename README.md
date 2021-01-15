@@ -17,6 +17,12 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
+## 一键安装phpmyadmin  [可选]
+###### 安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
+```shell script
+cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
+```
+
 ## 布帆云监控 [可选]
 ###### 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
 ```shell script
@@ -48,7 +54,24 @@ sysctl net.ipv4.tcp_available_congestion_control
 * 将`/etc/openvpn/auth_config.conf`目录中的数据库信息改为你主服务器数据库信息和服务器公网IP，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221847_f0fd1f91_5102272.png "屏幕截图.png")
 
-* 最后重启流控生效
+* 主服务器打开子节点连接权限，注意是在主服务器上执行
+###### 命令行中%就是意味着任何来源ip访问,如需指定ip,可把%换成相应IP
+###### 区别：%只需执行一次后续添加子节点可省略此步骤，指定ip时每次添加子节点都需要为对应子节点ip开启访问权限。
+
+```shell script
+mysql -u root -p你的数据库密码;
+GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY '你的数据库密码' WITH GRANT OPTION;
+```
+
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0115/173118_e6a6e5a0_5102272.png "屏幕截图.png")
+
+
+* 最后重启子节点VPN服务生效
+```shell script
+vpn restart
+```
+
+
 
 ## 常用命令
 
@@ -79,6 +102,9 @@ sysctl net.ipv4.tcp_available_congestion_control
 * 若侵犯作者利益，请联系我
 * 此脚本仅用适用于测试学习，不可用于非法或商业用途
 
+
+
+  
 
 
   
