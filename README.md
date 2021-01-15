@@ -17,7 +17,7 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
-## 主从选项
+## 个性化选项
 **>>> 脚本安装完成后同时兼容主服务器和子节点环境，内置RPC交换接口，如果作为主服务器选择【一、安装web管理端】，子节点则选择【二、负载子节点】** 
 
 ### 一、安装web管理端
