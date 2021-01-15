@@ -23,12 +23,6 @@ wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
 ```
 
-## 布帆云监控 [可选]
-###### 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
-```shell script
-rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
-```
-
 ## bbr加速 [可选]
 ###### 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
@@ -72,7 +66,11 @@ GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY '你的数据库密码' WI
 vpn restart
 ```
 
-
+## 布帆云监控 [可选]
+###### 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
+```shell script
+rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
+```
 
 ## 常用命令
 
