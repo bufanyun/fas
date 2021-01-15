@@ -95,7 +95,7 @@ rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P
 > 购买OP专用服务器请 [联系作者 QQ133814250](http://wpa.qq.com/msgrd?v=3&uin=133814250&site=qq&menu=yes) 
 
 
-## 声明
+## 免责声明
 * 本产品仅可用于国内网络环境的虚拟加密访问，用于数据保密，严禁用于任何违法违规用途
 * 请尊重作者，支持正版
 * 若侵犯作者利益，请联系我
