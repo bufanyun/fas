@@ -47,8 +47,8 @@ GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY '你的数据库密码' WI
 vpn restart
 ```
 
-## bbr加速 [可选]
-内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
+## bbr加速 
+[可选] 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
 wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 ```
@@ -58,14 +58,14 @@ wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh 
 sysctl net.ipv4.tcp_available_congestion_control
 ```
 
-## 一键安装phpmyadmin  [可选]
-需先安装fas脚本，安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
+## 一键安装phpmyadmin 
+[可选] 需先安装fas脚本，安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
 ```shell script
 cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
 ```
 
-## 布帆云监控 [可选]
-需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
+## 布帆云监控
+[可选] 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
 ```shell script
 rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
 ```
