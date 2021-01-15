@@ -55,13 +55,14 @@ sysctl net.ipv4.tcp_available_congestion_control
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221847_f0fd1f91_5102272.png "屏幕截图.png")
 
 * 主服务器打开子节点连接权限，注意是在主服务器上执行
-- 🚀 命令行中%就是意味着任何来源ip访问,如需指定ip,可把%换成相应IP
-- 🚀 区别：%只需执行一次后续添加子节点可省略此步骤，指定ip时每次添加子节点都需要为对应子节点ip开启访问权限。
 
 ```shell script
 mysql -u root -p你的数据库密码;
 GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY '你的数据库密码' WITH GRANT OPTION;
 ```
+- 🚀 命令行中%就是意味着任何来源ip访问,如需指定ip,可把%换成相应IP
+- 🚀 区别：%只需执行一次后续添加子节点可省略此步骤，指定ip时每次添加子节点都需要为对应子节点ip开启访问权限。
+
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0115/173118_e6a6e5a0_5102272.png "屏幕截图.png")
 
