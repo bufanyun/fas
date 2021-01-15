@@ -17,24 +17,7 @@ yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/
 wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
-## 一键安装phpmyadmin  [可选]
-安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
-```shell script
-cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
-```
-
-## bbr加速 [可选]
-内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
-```shell script
-wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
-```
-
-* 重启后，查看是否安装成功，如果返回结果中含有‘bbr’ 则说明成功
-```shell script
-sysctl net.ipv4.tcp_available_congestion_control
-```
-
-## 安装成功
+## 主从选项
 **>>> 脚本安装完成后同时兼容主服务器和子节点环境，内置RPC交换接口，如果作为主服务器选择【一、安装web管理端】，子节点则选择【二、负载子节点】** 
 
 ### 一、安装web管理端
@@ -57,13 +40,28 @@ GRANT ALL PRIVILEGES ON *.* TO root@'%' IDENTIFIED BY '你的数据库密码' WI
 - 🚀 %就是表示接受任何来源ip访问,如需指定子节点ip,可把%换成相应子节点ip
 - 🚀 区别：%只需执行一次后续添加子节点可省略此步骤，指定ip每次添加子节点都需要为其开启访问权限
 
-
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0115/173118_e6a6e5a0_5102272.png "屏幕截图.png")
-
 
 * 最后重启子节点VPN服务生效
 ```shell script
 vpn restart
+```
+
+## bbr加速 [可选]
+内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
+```shell script
+wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+```
+
+* 重启后，查看是否安装成功，如果返回结果中含有‘bbr’ 则说明成功
+```shell script
+sysctl net.ipv4.tcp_available_congestion_control
+```
+
+## 一键安装phpmyadmin  [可选]
+需先安装fas脚本，安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
+```shell script
+cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
 ```
 
 ## 布帆云监控 [可选]
