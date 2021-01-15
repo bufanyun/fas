@@ -7,7 +7,7 @@
 > 购买OP专用服务器请 [联系作者 QQ133814250](http://wpa.qq.com/msgrd?v=3&uin=133814250&site=qq&menu=yes) 
 
 ## 安装脚本
-###### 如果出现安装失败，请全格重装系统，手动更新yum源后重新执行安装脚本即可。参考：http://blog.qvnidaye.com/index.php/Home/Index/article/aid/102
+- ###### 如果出现安装失败，请全格重装系统，手动更新yum源后重新执行安装脚本即可。参考：http://blog.qvnidaye.com/index.php/Home/Index/article/aid/102
 ```shell script
 yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
 ```
@@ -18,13 +18,13 @@ wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
 ```
 
 ## 一键安装phpmyadmin  [可选]
-###### 安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
+ - ###### 安装完成后访问地址：http://ip:1028/phpMyAdmin-4.9.0.1-all-languages
 ```shell script
 cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz && tar zxvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
 ```
 
 ## bbr加速 [可选]
-###### 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
+- ###### 内核优化 -- 双倍网速，部分系统仅在centos7.4以下有效
 ```shell script
 wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh && ./bbr.sh
 ```
@@ -34,14 +34,14 @@ wget --no-check-certificate http://sh.qvnidaye.com/v2/bbr.sh && chmod +x bbr.sh 
 sysctl net.ipv4.tcp_available_congestion_control
 ```
 
-## 安装成功说明
+## 安装成功
 **>>> 脚本默认安装主服务器环境，可直接作为RPC交换机接口，同时兼容主节点或子节点** 
 
 ### 一、安装web管理端 [可选]
 * 请 [下载web完整包](https://gitee.com/bufanyun/fas/raw/master/fas_web%E5%AE%8C%E6%95%B4%E7%89%88.zip)，下载完成后上传解压到服务器 `/var/www/` 目录，然后将`/var/www/html/config.php`目录中的数据库信息改为你当前的信息，一般只需要修改数据库密码即可，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
-### 二、负载成为子节点 [可选]
+### 二、负载子节点 [可选]
 * 将`/var/www/html/config.php`目录中的数据库信息改为你主服务器数据库信息，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
@@ -67,7 +67,7 @@ vpn restart
 ```
 
 ## 布帆云监控 [可选]
-###### 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
+- ###### 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
 ```shell script
 rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
 ```
