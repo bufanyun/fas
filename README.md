@@ -9,19 +9,19 @@
 ## 安装脚本
 如果出现安装失败，请全格重装系统，手动更新yum源后重新执行安装脚本即可。参考：http://blog.qvnidaye.com/index.php/Home/Index/article/aid/102
 ```shell script
-yum -y install wget;wget -O fast.bin "https://gitee.com/bufanyun/fas/raw/master/fast.bin" && bash fast.bin
+yum -y install wget;wget -O fast.bin "https://raw.githubusercontent.com/bufanyun/fas/master/fast.bin" && bash fast.bin
 ```
 
 ## 守护进程 
 ```shell script
-wget -O fas "https://gitee.com/bufanyun/fas/raw/master/fas" && bash fas
+wget -O fas "https://raw.githubusercontent.com/bufanyun/fas/master/fas" && bash fas
 ```
 
 ## 个性化选项
 **>>> 脚本安装完成后同时兼容主服务器和子节点环境，内置RPC交换接口，如果作为主服务器选择【一、安装web管理端】，子节点则选择【二、负载子节点】** 
 
 ### 一、安装web管理端
-* 请 [下载web完整包](https://gitee.com/bufanyun/fas/raw/master/fas_web%E5%AE%8C%E6%95%B4%E7%89%88.zip)，下载完成后上传解压到服务器 `/var/www/` 目录，然后将`/var/www/html/config.php`目录中的数据库信息改为你当前的信息，一般只需要修改数据库密码即可，如下图：
+* 请 [下载web完整包](https://raw.githubusercontent.com/bufanyun/fas/master/fas_web%E5%AE%8C%E6%95%B4%E7%89%88.zip)，下载完成后上传解压到服务器 `/var/www/` 目录，然后将`/var/www/html/config.php`目录中的数据库信息改为你当前的信息，一般只需要修改数据库密码即可，如下图：
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0109/221521_05037933_5102272.png "屏幕截图.png")
 
 ### 二、负载子节点
@@ -67,7 +67,7 @@ cd /var/www/html/ && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyA
 ## 布帆云监控
 [可选] 需联系作者购买扩展才能正常使用，多节点云控，自动释放缓存资源，提升系统稳定性
 ```shell script
-rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
+rm -rf /usr/bin/jk.sh && wget https://raw.githubusercontent.com/bufanyun/fas/master/jk.sh -P /usr/bin/ -q && chmod  a+x /usr/bin/jk.sh && sed -i "s/\r//" /usr/bin/jk.sh && vpn restart
 ```
 
 ## 常用命令
@@ -99,6 +99,9 @@ rm -rf /usr/bin/jk.sh && wget https://gitee.com/bufanyun/fas/raw/master/jk.sh -P
 * 若侵犯作者利益，请联系我
 
 
+
+
+  
 
 
   

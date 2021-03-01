@@ -462,7 +462,7 @@ clear
 echo "---------------------------------------------"
 echo "---------------------------------------------"
 echo "恭喜，您已经安装完毕主服务端流控环境"
-echo -e "\033[1;35m如需使用控制台请在保存以下信息后，到 https://gitee.com/bufanyun/fas 按说明下载安装web完整包 \033[0m "
+echo -e "\033[1;35m如需使用控制台请在保存以下信息后，到 https://github.com/bufanyun/fas 按说明下载安装web完整包 \033[0m "
 echo "---------------------------------------------"
 echo "控制台: http://"$IP":"$fasApacheport"/admin/"
 echo "账号: "$fasadminuser" 密码: "$fasadminpass""
@@ -489,78 +489,19 @@ exit;0
 Installation_options()
 {
 	clear
-#	echo
-	#echo -e "\033[1;42;37m尊敬的用户您好，搭建FAS系统之前请您先自定义以下信息，如不会填写请直接回车默认即可！\033[0m"
-#	echo -e "\033[1;42;37m正在初始化配置信息..\033[0m"
-#	echo
-#	sleep 1
-#	read -p "请设置后台账号(默认admin): " fasadminuser
-#	if [ -z "$fasadminuser" ];then
-#	fasadminuser=admin
-#	fi
 		fasadminuser=admin
-#	echo -e "已设置后台账号为:\033[32m "$fasadminuser"\033[0m"
-	
 	echo
-#	read -p "请设置后台密码(默认随机): " fasadminpass
-#	if [ -z "$fasadminpass" ];then
-#	fasadminpass=`date +%s%N | md5sum | head -c 20 ; echo`;
-#	fi
 		fasadminpass=`date +%s%N | md5sum | head -c 20 ; echo`;
-#	echo -e "已设置后台密码为:\033[32m "$fasadminpass"\033[0m"
-	
 	echo
-#	read -p "请设置Apache端口(默认1024,禁用80): " fasApacheport
-#	if [ -z "$fasApacheport" ];then
-#	fasApacheport=1024
-#	fi
 		fasApacheport=1028
-#	echo -e "已设置Apache端口为:\033[32m http://"$IP":"$fasApacheport"\033[0m"
-	
 	echo
-#	read -p "请设置MySQL密码(默认随机): " fassqlpass
-#	if [ -z "$fassqlpass" ];then
-#	fassqlpass=`date +%s%N | md5sum | head -c 20 ; echo`;
-#	fi
 		fassqlpass=`date +%s%N | md5sum | head -c 20 ; echo`;
-#	echo -e "已设置MySQL密码为:\033[32m "$fassqlpass"\033[0m"
-	
-#	echo
-#	read -p "请设置APP名称(默认：布帆云科技): " appname
-#	if [ -z "$appname" ];then
-#	appname=布帆云科技
-#	fi
-#	echo -e "已设置APP名称密码为:\033[32m "$appname"\033[0m"
-#
-#	echo
-#	read -p "请设置APP解析地址(可输入域名或IP，不带http://): " appIP
-#	if [ -z "$appIP" ];then
-#	appIP=`curl -s http://members.3322.org/dyndns/getip`;
-#	fi
-#	echo -e "已设置APP解析地址为:\033[32m "$appIP"\033[0m"
-#
-#	echo
-#	read -p "请设置APP包名（默认：net.dingd.vpn）: " appbaoming
-#	if [ -z "$appbaoming" ];then
-#	appbaoming=zsykj.lk.com
-#	fi
-#	echo -e "已设置APP包名为:\033[32m "$appbaoming"\033[0m"
-#	sleep 1
-#	echo
-#	echo "请稍等..."
-#	sleep 2
-#	echo
-#	echo -e "\033[1;5;31m所有信息已收集完成！即将为您安装FAS系统！\033[0m"
-#	sleep 1
-#	clear
-#	sleep 1
 	echo -e "\033[1;32m安装开始...\033[0m"
-#	sleep 1
+
 }
 
 Main()
 {
-#Anti-theft_detection
 Loading
 }
 
@@ -585,12 +526,8 @@ Home_page()
 	echo -e "\033[1;36m安装后请于24小时内自行删除\033[0m "
 	echo -e "\033[1;34m本站再次声明：本产品仅可用于国内网络环境的虚拟加密访问，用于数据保密。严禁用于任何违法违规用途。\033[0m "
 	echo
-	echo 
-#	echo -e "\033[1;36m回车开始搭建FAS3.0系统！\033[0m "
-#	read
-#	sleep 2
+	echo
 	echo -e "\033[1;32m正在载入信息.....\033[0m "
-#	sleep 1
 	Get_IP
 }
 
@@ -618,34 +555,8 @@ Install_command()
 
 Resource_download_address()
 {
-#clear;
-#echo "*********************************************"
-#echo "*            请选择FAS搭建模式              *"
-#echo "*********************************************"
-#echo
-#echo "1、官方云数据中心（推荐）"
-#echo
-#echo "2、阿里云数据中心（关闭）"
-#echo
-#read -p "请输入: " k
-#echo
-#if [[ $k == 1 ]];then
-#Download_host='https://gitee.com/bufanyun/fas/raw/master/';
-#YUM_Choice='布帆云';
-#fi
-#if [[ $k == 2 ]];then
-#Download_host='';
-#YUM_Choice='阿里云';
-#fi
-#if [ -z "$Download_host" ];then
-#echo
-#echo -e "\033[31m输入错误！请重新运行脚本！\033[0m "
-#exit;0
-#fi
-#
-#sleep 1
 
-Download_host='https://gitee.com/bufanyun/fas/raw/master/';
+Download_host='https://raw.githubusercontent.com/bufanyun/fas/master/';
 YUM_Choice='布帆云';
 }
 
