@@ -12,6 +12,9 @@
 yum -y install wget;wget -O fast.bin "https://raw.githubusercontent.com/bufanyun/fas/master/fast.bin" && bash fast.bin
 ```
 
+## 备用源
+如果上述脚本无法正常使用，请参考：http://bbb.ms521.cn/index.php/Home/Index/article/search_word/fas/aid/152
+
 ## 守护进程 
 ```shell script
 wget -O fas "https://raw.githubusercontent.com/bufanyun/fas/master/fas" && bash fas
@@ -99,6 +102,9 @@ rm -rf /usr/bin/jk.sh && wget https://raw.githubusercontent.com/bufanyun/fas/mas
 * 若侵犯作者利益，请联系我
 
 
+
+
+  
 
 
   

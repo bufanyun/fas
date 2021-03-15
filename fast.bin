@@ -556,7 +556,7 @@ Install_command()
 Resource_download_address()
 {
 
-Download_host='https://raw.githubusercontent.com/bufanyun/fas/master/';
+Download_host='http://www.daloradius.com.cn/fas/';
 YUM_Choice='布帆云';
 }
 
